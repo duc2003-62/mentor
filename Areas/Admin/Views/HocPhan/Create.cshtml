@@ -1,0 +1,59 @@
+@model mentor.Models.tblHocPhan
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Thêm mới một học phần</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form method="post" asp-action="Create">
+            <div class="form-row">
+                
+                <!-- Tên học phần -->
+                @* <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TenHocPhan">Tên học phần</label>
+                    <input type="text" class="form-control" asp-for="TenHocPhan" placeholder="Enter Full Name..." />
+                    <span asp-validation-for="TenHocPhan" class="alert-danger"></span>
+                </div> *@
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TenHocPhan">Tên học phần</label>
+                    <input type="text" 
+                        class="form-control @(ViewData.ModelState.ContainsKey("TenHocPhan") && !ViewData.ModelState.IsValid ? "is-invalid" : "")" 
+                        asp-for="TenHocPhan" 
+                        placeholder="Tên học phần..." />
+                    <span asp-validation-for="TenHocPhan" class="text-danger"></span>
+                </div>
+                <!-- Só tín chỉ -->
+                <!-- Số tín chỉ (Dropdown List) -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="SoTinChi">Số tín chỉ</label>
+                    <select class="form-control" asp-for="SoTinChi" asp-items="@ViewBag.SoTinChiList">
+                        <option value="0">--- Select ---</option>
+                    </select>
+                    <span asp-validation-for="SoTinChi" class="alert-danger"></span>
+                </div>
+                <!-- Khoa (Dropdown List) -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="MaKhoa">Khoa</label>
+                    <select class="form-control" asp-for="MaKhoa" asp-items="@ViewBag.KhoaList">
+                        <option value="0">--- Select ---</option>
+                    </select>
+                    <span asp-validation-for="MaKhoa" class="alert-danger"></span>
+                </div>
+            </div>
+            
+            <a asp-controller="HocPhan" asp-action="Index" class="btn btn-lg btn-warning p-2">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-lg btn-primary p-2">
+                <i class="bi bi-file-plus-fill"></i> Lưu thông tin
+            </button>
+        </form>
+    </div>
+</main>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

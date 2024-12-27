@@ -1,0 +1,20 @@
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Thống kê khoa</h1>
+    </div>
+    <div class="container mt-5">
+        <h3>Chọn loại thống kê</h3>
+        <div class="mt-4">
+            <a href="@Url.Action("ThongKeKhoaHienCo", "ThongKeKhoa", new { area = "Admin" })" class="btn btn-primary">
+                Thống kê danh sách các khoa hiện có
+            </a>
+            <a href="@Url.Action("ThongKeTruongKhoa", "ThongKeKhoa", new { area = "Admin" })" class="btn btn-success">
+                Thống kê danh sách các khoa với trưởng khoa hiện tại
+            </a>
+        </div>
+    </div>
+</main>

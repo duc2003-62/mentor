@@ -1,0 +1,160 @@
+@* @using mentor.Models
+@model IList<mentor.Models.tblSinhVienCuaLopHocPhan>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Chi tiết sinh viên trong lớp học phần</h2>
+        <p>
+            <a type="button" class="btn btn-success" 
+            href="/Admin/svhocphan/create/@(ViewBag.LopHocPhanId)">
+                <i class="bi bi-file-earmark-text me-1"></i>Thêm sinh viên vào lớp học phần
+            </a>
+            
+        </p>
+    </div>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông tin chi tiết sinh viên</h5>
+                        <!-- Hiển thị bảng danh sách sinh viên -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mã sinh viên</th>
+                                    <th>Họ tên</th>
+                                    <th>Email</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Ghi chú</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    var sinhVienCuaLopHocPhan = Model[i];
+                                    <tr>
+                                        <td>@(i + 1)</td> <!-- Số thứ tự -->
+                                        <td>@(sinhVienCuaLopHocPhan.SinhVien != null ? sinhVienCuaLopHocPhan.SinhVien.MaSinhVienCode : "Không có thông tin")</td>
+                                        <td>@(sinhVienCuaLopHocPhan.SinhVien != null ? sinhVienCuaLopHocPhan.SinhVien.HoTen : "Không có thông tin")</td>
+                                        <td>@(sinhVienCuaLopHocPhan.SinhVien != null ? sinhVienCuaLopHocPhan.SinhVien.Email : "Không có thông tin")</td>
+                                        <td>@(sinhVienCuaLopHocPhan.SinhVien?.NgaySinh != null ? sinhVienCuaLopHocPhan.SinhVien.NgaySinh.Value.ToString("dd/MM/yyyy") : "Không có thông tin")</td>
+                                        <td>@(!string.IsNullOrEmpty(sinhVienCuaLopHocPhan.GhiChu) ? sinhVienCuaLopHocPhan.GhiChu : "Không có thông tin")</td>
+                                        <td> 
+                                            <a asp-area="Admin" asp-controller="SVLopHocPhan" asp-action="Edit" asp-route-id="@sinhVienCuaLopHocPhan.MaSinhVienCuaLopHocPhan" class="btn btn-primary btn-sm" title="Chỉnh sửa"><i class="bi bi-pencil"></i></a>
+                                            <form asp-area="Admin" asp-controller="SVLopHocPhan" asp-action="Delete" asp-route-id="@sinhVienCuaLopHocPhan.MaSinhVienCuaLopHocPhan" method="post" style="display:inline;">
+                                                
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Xóa">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                        <p>
+                            <a type="button" class="btn btn-secondary" asp-area="Admin" asp-controller="SVLopHocPhan" asp-action="Index">
+                                <i class="bi bi-arrow-left"></i> Quay lại danh sách
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main> *@
+@using mentor.Models
+@model IList<mentor.Models.tblSinhVienCuaLopHocPhan>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Chi tiết sinh viên trong lớp học phần</h2>
+        <p>
+            <a asp-area="Admin" asp-controller="SVHocPhan" asp-action="Create" asp-route-id="@ViewBag.LopHocPhanId" class="btn btn-success">
+                <i class="bi bi-file-earmark-text me-1"></i> Thêm sinh viên vào lớp học phần
+            </a>
+        </p>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông tin chi tiết sinh viên</h5>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã sinh viên</th>
+                                        <th>Họ tên</th>
+                                        <th>Email</th>
+                                        <th>Ngày sinh</th>
+                                        <th>Ghi chú</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        var sinhVienCuaLopHocPhan = Model[i];
+                                        <tr>
+                                            <td>@(i + 1)</td>
+                                            <td>@(sinhVienCuaLopHocPhan.SinhVien?.MaSinhVienCode ?? "Không có thông tin")</td>
+                                            <td>@(sinhVienCuaLopHocPhan.SinhVien?.HoTen ?? "Không có thông tin")</td>
+                                            <td>@(sinhVienCuaLopHocPhan.SinhVien?.Email ?? "Không có thông tin")</td>
+                                            <td>@(sinhVienCuaLopHocPhan.SinhVien?.NgaySinh?.ToString("dd/MM/yyyy") ?? "Không có thông tin")</td>
+                                            <td>@(string.IsNullOrEmpty(sinhVienCuaLopHocPhan.GhiChu) ? "Không có thông tin" : sinhVienCuaLopHocPhan.GhiChu)</td>
+                                            <td>
+                                                <a asp-area="Admin" asp-controller="SVLopHocPhan" asp-action="Edit" asp-route-id="@sinhVienCuaLopHocPhan.MaSinhVienCuaLopHocPhan" class="btn btn-primary btn-sm" title="Chỉnh sửa"><i class="bi bi-pencil"></i></a>
+                                                <form asp-area="Admin" asp-controller="SVLopHocPhan" asp-action="Delete" asp-route-id="@sinhVienCuaLopHocPhan.MaSinhVienCuaLopHocPhan" method="post" style="display:inline;">
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><i class="bi bi-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        <p>
+                            <a asp-area="Admin" asp-controller="SVLopHocPhan" asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Quay lại danh sách
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

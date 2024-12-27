@@ -1,0 +1,115 @@
+@using mentor.Models
+@model IList<tblNguoiDung>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Danh sách người dùng</h2>
+        <p>
+            <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="NguoiDung" asp-action="Create">
+                <i class="bi bi-file-earmark-text me-1"></i>Thêm mới người dùng
+            </a>
+        </p>
+    </div>
+
+    <!-- Hiển thị thông báo lỗi -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-body mt-4">
+                        <table class="table table-bordered datatable">
+                            <thead>
+                                <tr>
+                                    <th class="col-1 text-center">STT</th>
+                                    <th class="col-2 text-center">Tên tài khoản</th>
+                                    <th class="col-3 text-center">Email</th>
+                                    <th class="col-2 text-center">Số điện thoại</th>
+                                    <th class="col-2 text-center">Vai trò</th>
+                                    <th class="col-2 text-center">Trạng thái</th>
+                                    <th class="col-3 text-center">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int index = 1;  // Khởi tạo biến STT bắt đầu từ 1
+                                }
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center" scope="row">@index</td> <!-- Cột STT -->
+                                        <td class="text-left text-primary">
+                                            <a asp-area="Admin" asp-controller="NguoiDung" asp-action="Details" asp-route-id="@item.MaNguoiDung">
+                                                @item.TenTaiKhoan
+                                            </a>
+                                        </td>
+                                        <td class="text-center">@item.Email</td>
+                                        <td class="text-center">@item.SoDienThoai</td>
+                                        <td class="text-center">@item.VaiTro</td>
+                                        <td class="text-center">
+                                            @if (item.TrangThai.HasValue && item.TrangThai.Value)
+                                            {
+                                                <span class="badge bg-success">Hoạt động</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">Không hoạt động</span>
+                                            }
+                                        </td>
+                                        <td class="text-center" style="white-space: nowrap;">
+                                            <a asp-area="Admin" asp-controller="NguoiDung" asp-action="Edit" asp-route-id="@item.MaNguoiDung" class="btn btn-primary btn-sm" title="Chỉnh sửa người dùng">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="NguoiDung" asp-action="Delete" asp-route-id="@item.MaNguoiDung" class="btn btn-danger btn-sm" title="Xóa người dùng">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="NguoiDung" asp-action="ToggleStatus" asp-route-id="@item.MaNguoiDung" method="post" class="btn btn-warning btn-sm" title="Thay đổi trạng thái">
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    index++;  <!-- Tăng giá trị của STT sau mỗi vòng lặp -->
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Thêm JavaScript để kích hoạt DataTable -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.datatable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                order: [[0, 'asc']], // Sắp xếp mặc định theo cột STT
+                language: {
+                    search: "Tìm kiếm:",
+                    lengthMenu: "Hiển thị _MENU_ dòng",
+                    info: "Hiển thị _START_ đến _END_ trong _TOTAL_ người dùng",
+                    paginate: {
+                        previous: "Trước",
+                        next: "Sau"
+                    }
+                }
+            });
+        });
+    </script>
+}

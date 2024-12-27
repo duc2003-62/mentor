@@ -1,0 +1,123 @@
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1 style="font-weight: bold; font-size: 3.5rem;">HỌC - HỌC NỮA - HỌC MÃI</h1>
+              <p class="mb-0">Khóa học lập trình là một chương trình đào tạo chuyên sâu nhằm trang bị cho học viên những kiến thức và kỹ năng cần thiết để phát triển phần mềm. Trong khóa học này, học viên sẽ được làm quen với các ngôn ngữ lập trình phổ biến như C++, Java, Python, và JavaScript. Bên cạnh đó, khóa học còn bao gồm các nội dung về cấu trúc dữ liệu, thuật toán, lập trình hướng đối tượng, phát triển ứng dụng web và di động. Học viên sẽ có cơ hội thực hành qua các dự án thực tế để củng cố kiến thức và phát triển tư duy logic. Khóa học phù hợp cho cả người mới bắt đầu lẫn những người muốn nâng cao trình độ lập trình.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="breadcrumbs">
+        <div class="container">
+          <ol>
+
+            <li><a href="@Url.Action("Index", "Home")" class="fw-bold fs-5">Trang chủ</a></li>
+            <li><a href="@Url.Action("Khoahoc", "Home")" class="fw-bold fs-5">Khóa học</a></li>
+
+            <!--- <li class="Khoahoc.cshtml">Khóa học</li> --->
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses section">
+
+      <!-- Section Title -->
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="course-item">
+              <img src="@Url.Content("~/assets/img/course-1.jpg")" class="img-fluid" alt="...">
+              <!---<img src="assets/img/course-1.jpg" class="img-fluid" alt="..."> --->
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <p class="category">Lập trình C++</p>
+                  <p class="price">$169</p>
+                </div>
+
+                <h3><a href="course-details.html">Lập trình C++</a></h3>
+                <p class="description">Khóa học lập trình là một chương trình đào tạo cung cấp cho bạn kiến thức và kỹ năng cần thiết để tạo ra các phần mềm, ứng dụng, website..</p>
+                <div class="trainer d-flex justify-content-between align-items-center">
+                  <div class="trainer-profile d-flex align-items-center">
+                    <img src="@Url.Content("~/images/202410/anhduc.jpg")" class="img-fluid" alt="...">
+                    <a href="" class="trainer-link">Hữu Đức</a>
+                  </div>
+                  <div class="trainer-rank d-flex align-items-center">
+                    <i class="bi bi-person user-icon"></i>&nbsp;50
+                    &nbsp;&nbsp;
+                    <i class="bi bi-heart heart-icon"></i>&nbsp;65
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End Course Item-->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="course-item">
+              <img src="@Url.Content("~/images/202410/anh1.jpg")" class="img-fluid" alt="...">
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <p class="category">Lập trình robot</p>
+                  <p class="price">$250</p>
+                </div>
+
+                <h3><a href="course-details.html">Lập trình robot</a></h3>
+                <p class="description">Lập trình robot là một ngành khoa học kỹ thuật kết hợp giữa phần cứng và phần mềm, nhằm tạo ra các chương trình điều khiển robot thực hiện các nhiệm vụ được giao.</p>
+                <div class="trainer d-flex justify-content-between align-items-center">
+                  <div class="trainer-profile d-flex align-items-center">
+                    <img src="@Url.Content("~/images/202410/anhtrang1.jpg")" class="img-fluid" alt="...">
+                    <a href="" class="trainer-link">Quỳnh Trang</a>
+                  </div>
+                  <div class="trainer-rank d-flex align-items-center">
+                    <i class="bi bi-person user-icon"></i>&nbsp;35
+                    &nbsp;&nbsp;
+                    <i class="bi bi-heart heart-icon"></i>&nbsp;42
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End Course Item-->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+            <div class="course-item">
+              <img src="@Url.Content("~/assets/img/course-3.jpg")" class="img-fluid" alt="...">
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <p class="category">Lập trình web</p>
+                  <p class="price">$180</p>
+                </div>
+
+                <h3><a href="course-details.html">Lập trình web</a></h3>
+                <p class="description">Lập trình web là quá trình tạo ra các trang web và ứng dụng web tương tác, bằng cách sử dụng các ngôn ngữ lập trình đặc biệt.</p>
+                <div class="trainer d-flex justify-content-between align-items-center">
+                  <div class="trainer-profile d-flex align-items-center">
+                    <img src="@Url.Content("~/images/202410/anhdung1.jpg")" class="img-fluid" alt="...">
+                    <a href="" class="trainer-link">Thùy Dung</a>
+                  </div>
+                  <div class="trainer-rank d-flex align-items-center">
+                    <i class="bi bi-person user-icon"></i>&nbsp;20
+                    &nbsp;&nbsp;
+                    <i class="bi bi-heart heart-icon"></i>&nbsp;85
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End Course Item-->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Courses Section -->
+
+  </main>

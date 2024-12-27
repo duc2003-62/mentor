@@ -1,0 +1,35 @@
+@model IEnumerable<dynamic>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Danh sách các khoa với trưởng khoa hiện tại</h1>
+    </div>
+    <div class="container mt-5">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Mã Khoa</th>
+                    <th>Tên Khoa</th>
+                    <th>Trưởng Khoa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var khoa in Model)
+                {
+                    <tr>
+                        <td>@khoa.MaKhoa</td>
+                        <td>@khoa.TenKhoa</td>
+                        <td>@khoa.TruongKhoa</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a href="@Url.Action("Index", "ThongKeKhoa", new { area = "Admin" })" class="btn btn-warning">
+            <i class="bi bi-arrow-left"></i> Quay lại danh sách
+        </a>
+        <a href="@Url.Action("ExportTruongKhoa", "ThongKeKhoa", new { area = "Admin" })" class="btn btn-success">
+            <i class="bi bi-file-earmark-excel"></i> Xuất Excel
+        </a>
+
+    </div>
+</main>

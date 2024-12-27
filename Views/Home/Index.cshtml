@@ -1,0 +1,385 @@
+﻿<main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+      <img src="@Url.Content("~/assets/img/hero-bg.jpg")" alt="" data-aos="fade-in">
+      <!--- <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in"> --->
+
+      <div class="container">
+        <h2 data-aos="fade-up" data-aos-delay="100">Học tập hôm nay,<br>Dẫn lỗi ngày mai</h2>
+        <p data-aos="fade-up" data-aos-delay="200">Giáo dục là chìa khóa mở ra cánh cửa tương lai. Không chỉ là việc truyền đạt kiến thức, mà còn là hành trình nuôi dưỡng tư duy, rèn luyện kỹ năng, và khơi dậy tiềm năng vô tận của mỗi con người. Giáo dục không chỉ giúp chúng ta chuẩn bị cho công việc mà còn cho cuộc sống, trao cho ta khả năng thích nghi, sáng tạo, và đóng góp vào sự phát triển của xã hội. Những gì chúng ta học hôm nay không chỉ ảnh hưởng đến bản thân, mà còn định hình thế giới mà chúng ta sẽ tạo ra cho các thế hệ sau. Vì vậy, hãy học không ngừng nghỉ, để dẫn dắt tương lai và xây dựng một thế giới tốt đẹp hơn.</p>
+        <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
+          
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+      
+    @await Component.InvokeAsync("Post")
+    </section><!-- /About Section -->
+
+    <!-- Counts Section -->
+    <section id="counts" class="section counts light-background">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="1232" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Students</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Courses</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="42" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Events</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Trainers</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Counts Section -->
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="section why-us">
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="why-box">
+              <h3>Lợi ích của việc học đối với tương lai</h3>
+              <p>
+                Việc học tập không chỉ giúp chúng ta mở rộng kiến thức mà còn phát triển kỹ năng tư duy, kỹ năng mềm và xây dựng nền tảng vững chắc cho tương lai. Thông qua học tập, chúng ta tự tin hơn trong cuộc sống và mở ra nhiều cơ hội nghề nghiệp.
+              </p>
+              <div class="text-center">
+                <a href="#" class="more-btn"><span>Learn More</span> <i class="bi bi-chevron-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Why Box -->
+
+          <div class="col-lg-8 d-flex align-items-stretch">
+            <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
+
+              <div class="col-xl-4">
+                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                  <i class="bi bi-clipboard-data"></i>
+                  <h4>Mở rộng kiến thức</h4>
+                  <p>Việc học giúp chúng ta mở rộng tầm hiểu biết về thế giới xung quanh, từ khoa học đến văn hóa.</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                  <i class="bi bi-gem"></i>
+                  <h4>Phát triển kỹ năng tư duy</h4>
+                  <p>Học tập không chỉ là tiếp thu kiến thức mà còn là phát triển tư duy phản biện, phân tích và sáng tạo.</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                  <i class="bi bi-inboxes"></i>
+                  <h4>Nâng cao kỹ năng giao tiếp</h4>
+                  <p>Thông qua học tập, chúng ta cải thiện khả năng giao tiếp và làm việc nhóm.</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Why Us Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="features-item">
+              <i class="bi bi-eye" style="color: #ffbb2c;"></i>
+              <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="features-item">
+              <i class="bi bi-infinity" style="color: #5578ff;"></i>
+              <h3><a href="" class="stretched-link">Dolor Sitema</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="features-item">
+              <i class="bi bi-mortarboard" style="color: #e80368;"></i>
+              <h3><a href="" class="stretched-link">Sed perspiciatis</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="features-item">
+              <i class="bi bi-nut" style="color: #e361ff;"></i>
+              <h3><a href="" class="stretched-link">Magni Dolores</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="500">
+            <div class="features-item">
+              <i class="bi bi-shuffle" style="color: #47aeff;"></i>
+              <h3><a href="" class="stretched-link">Nemo Enim</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="600">
+            <div class="features-item">
+              <i class="bi bi-star" style="color: #ffa76e;"></i>
+              <h3><a href="" class="stretched-link">Eiusmod Tempor</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="700">
+            <div class="features-item">
+              <i class="bi bi-x-diamond" style="color: #11dbcf;"></i>
+              <h3><a href="" class="stretched-link">Midela Teren</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="800">
+            <div class="features-item">
+              <i class="bi bi-camera-video" style="color: #4233ff;"></i>
+              <h3><a href="" class="stretched-link">Pira Neve</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="900">
+            <div class="features-item">
+              <i class="bi bi-command" style="color: #b2904f;"></i>
+              <h3><a href="" class="stretched-link">Dirada Pack</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="1000">
+            <div class="features-item">
+              <i class="bi bi-dribbble" style="color: #b20969;"></i>
+              <h3><a href="" class="stretched-link">Moton Ideal</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="1100">
+            <div class="features-item">
+              <i class="bi bi-activity" style="color: #ff5828;"></i>
+              <h3><a href="" class="stretched-link">Verdo Park</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="1200">
+            <div class="features-item">
+              <i class="bi bi-brightness-high" style="color: #29cc61;"></i>
+              <h3><a href="" class="stretched-link">Flavor Nivelanda</a></h3>
+            </div>
+          </div><!-- End Feature Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Features Section -->
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Khóa học</h2>
+        <p>Các khóa học phổ biến</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="course-item">
+              <img src="@Url.Content("~/assets/img/course-1.jpg")" class="img-fluid" alt="...">
+              <!---<img src="assets/img/course-1.jpg" class="img-fluid" alt="..."> --->
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <p class="category">Lập trình C++</p>
+                  <p class="price">$169</p>
+                </div>
+
+                <h3><a href="http://localhost:5145/Home/Khoahoc">Lập trình C++</a></h3>
+                <p class="description">Khóa học lập trình là một chương trình đào tạo cung cấp cho bạn kiến thức và kỹ năng cần thiết để tạo ra các phần mềm, ứng dụng, website..</p>
+                <div class="trainer d-flex justify-content-between align-items-center">
+                  <div class="trainer-profile d-flex align-items-center">
+                    <img src="@Url.Content("~/images/202410/anhduc.jpg")" class="img-fluid" alt="...">
+                    <a href="" class="trainer-link">Hữu Đức</a>
+                  </div>
+                  <div class="trainer-rank d-flex align-items-center">
+                    <i class="bi bi-person user-icon"></i>&nbsp;50
+                    &nbsp;&nbsp;
+                    <i class="bi bi-heart heart-icon"></i>&nbsp;65
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End Course Item-->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="course-item">
+              <img src="@Url.Content("~/images/202410/anh1.jpg")" class="img-fluid" alt="...">
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <p class="category">Lập trình robot</p>
+                  <p class="price">$250</p>
+                </div>
+
+                <h3><a href="http://localhost:5145/Home/Khoahoc">Lập trình robot</a></h3>
+                <p class="description">Lập trình robot là một ngành khoa học kỹ thuật kết hợp giữa phần cứng và phần mềm, nhằm tạo ra các chương trình điều khiển robot thực hiện các nhiệm vụ được giao.</p>
+                <div class="trainer d-flex justify-content-between align-items-center">
+                  <div class="trainer-profile d-flex align-items-center">
+                    <img src="@Url.Content("~/images/202410/anhtrang1.jpg")" class="img-fluid" alt="...">
+                    <a href="" class="trainer-link">Quỳnh Trang</a>
+                  </div>
+                  <div class="trainer-rank d-flex align-items-center">
+                    <i class="bi bi-person user-icon"></i>&nbsp;35
+                    &nbsp;&nbsp;
+                    <i class="bi bi-heart heart-icon"></i>&nbsp;42
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End Course Item-->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+            <div class="course-item">
+              <img src="@Url.Content("~/assets/img/course-3.jpg")" class="img-fluid" alt="...">
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <p class="category">Lập trình web</p>
+                  <p class="price">$180</p>
+                </div>
+
+                <h3><a href="http://localhost:5145/Home/Khoahoc">Lập trình web</a></h3>
+                <p class="description">Lập trình web là quá trình tạo ra các trang web và ứng dụng web tương tác, bằng cách sử dụng các ngôn ngữ lập trình đặc biệt.</p>
+                <div class="trainer d-flex justify-content-between align-items-center">
+                  <div class="trainer-profile d-flex align-items-center">
+                    <img src="@Url.Content("~/images/202410/anhdung1.jpg")" class="img-fluid" alt="...">
+                    <a href="" class="trainer-link">Thùy Dung</a>
+                  </div>
+                  <div class="trainer-rank d-flex align-items-center">
+                    <i class="bi bi-person user-icon"></i>&nbsp;20
+                    &nbsp;&nbsp;
+                    <i class="bi bi-heart heart-icon"></i>&nbsp;85
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End Course Item-->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Courses Section -->
+
+    <!-- Trainers Index Section -->
+    <section id="trainers-index" class="section trainers-index">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+            <div class="member">
+              <img src="@Url.Content("~/images/202410/trang.jpg")" class="img-fluid" alt="...">
+              <div class="member-content">
+                <h4>Phạm Quỳnh Trang</h4>
+                <span>Giáo viên</span>
+                <p>
+                  Giảng dạy chú trọng vào trải nghiệm học tập của học sinh, khuyến khích sự chủ động trong việc học và áp dụng kiến thức vào giải quyết vấn đề thực tế.
+                </p>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+            <div class="member">
+              <img src="@Url.Content("~/images/202410/duc.jpg")" class="img-fluid" alt="...">
+              <div class="member-content">
+                <h4>Nguyễn Hữu Đức</h4>
+                <span>Giáo viên</span>
+                <p>
+                  Với phương châm giảng dạy là kết hợp giữa lý thuyết và thực hành, thầy Đức luôn mong muốn truyền đạt kiến thức và khơi dậy niềm đam mê lập trình trong mỗi học sinh.
+                </p>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+              <img src="@Url.Content("~/images/202410/dung.jpg")" class="img-fluid" alt="...">
+              <div class="member-content">
+                <h4>Nguyễn Thị Thùy Dung</h4>
+                <span>Giáo viên</span>
+                <p>
+                  Bằng việc kết hợp công nghệ hiện đại vào giảng dạy, học sinh sẽ được tiếp cận các công cụ tiên tiến, từ đó không chỉ học hỏi mà còn thực hành kỹ năng một cách thành thạo.
+                </p>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Trainers Index Section -->
+
+  </main>

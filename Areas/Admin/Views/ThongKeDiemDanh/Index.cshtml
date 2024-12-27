@@ -1,0 +1,50 @@
+@using mentor.Models
+@model IEnumerable<mentor.Models.tblLopHocPhan>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Danh sách lớp học phần</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <p class="text-danger">Hiện tại không có lớp học phần nào.</p>
+            }
+            else
+            {
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên lớp học phần</th>
+                            <th>Tên giảng viên</th>
+                            <th>Học kỳ</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @* Sử dụng biến đếm i để tạo STT *@
+                        @{
+                            int i = 1;
+                        }
+                        @foreach (var lopHocPhan in Model)
+                        {
+                            <tr>
+                                <td>@i</td> @* Hiển thị số thứ tự *@
+                                <td>@lopHocPhan.TenLopHocPhan</td>
+                                <td>@lopHocPhan.GiangVien?.HoTenGiangVien</td>
+                                <td>@lopHocPhan.HocKy</td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@lopHocPhan.MaLopHocPhan" class="btn btn-info">Xem chi tiết</a>
+                                </td>
+                            </tr>
+                            i++; @* Tăng giá trị biến đếm *@
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</main>

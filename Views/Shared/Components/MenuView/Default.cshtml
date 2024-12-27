@@ -1,0 +1,130 @@
+@model IList<tblMenu>
+
+<header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="http://localhost:5145/Home" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">EDUCATION</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+            @foreach (var menu in Model.Where(m => m.Levels == 1).OrderBy(m => m.MenuOrder))
+            {
+                var pID = menu.MenuID;
+                var sMenu = Model.Where(m => m.ParentID == pID && m.Levels == 2).OrderBy(m => m.MenuOrder).ToList();
+                
+                if (sMenu.Count == 0)
+                {
+                    <li><a href="@menu.Link">@menu.MenuName</a></li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@menu.Link">@menu.MenuName</a>
+                        <ul class="submenu">
+                            @foreach (var sMenus in sMenu)
+                            {
+                                var tMenus = Model.Where(m => m.ParentID == sMenus.MenuID && m.Levels == 3).OrderBy(m => m.MenuOrder).ToList();
+                                
+                                if (tMenus.Count == 0)
+                                {
+                                    <li><a href="@sMenus.Link">@sMenus.MenuName</a></li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="@sMenus.Link">@sMenus.MenuName</a>
+                                        <ul class="submenu-level-3">
+                                            @foreach (var tMenu in tMenus)
+                                            {
+                                                <li><a href="@tMenu.Link">@tMenu.MenuName</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <a class="btn-getstarted" href="http://localhost:5145/Admin/DangNhap" style="font-size: 1.25em; font-weight: bold;">Bắt đầu</a>
+    </div>
+</header>
+
+
+<!-- CSS cho menu và submenu -->
+<style>
+    /* Cơ bản cho menu */
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    ul li {
+        position: relative;
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    ul li a {
+        text-decoration: none;
+        color: black;
+        padding: 10px 15px;
+    }
+
+    /* Định dạng submenu cấp 2 */
+    ul li ul.submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    ul li:hover > ul.submenu {
+        display: block;
+    }
+
+    ul li ul.submenu li {
+        display: block;
+    }
+
+    /* Định dạng submenu cấp 3 */
+    ul li ul.submenu li ul.submenu-level-3 {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background-color: white;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    ul li ul.submenu li:hover > ul.submenu-level-3 {
+        display: block;
+    }
+
+    /* Định dạng khi hover */
+    ul li ul.submenu li a, ul li ul.submenu-level-3 li a {
+        padding: 10px 15px;
+        color: black;
+        text-decoration: none;
+    }
+
+    ul li ul.submenu li a:hover, ul li ul.submenu-level-3 li a:hover {
+        background-color: #f2f2f2;
+    }
+
+</style>

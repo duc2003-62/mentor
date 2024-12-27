@@ -1,0 +1,43 @@
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Thống kê lớp biên chế</h1>
+    </div>
+    <div class="container mt-5">
+        <h3>Danh sách lớp biên chế theo từng khoa và từng năm học</h3>
+
+        <div class="mt-4">
+            <a href="@Url.Action("ExportLopBienChe", "ThongKeLopBienChe", new { area = "Admin" })" class="btn btn-success">
+                <i class="bi bi-file-earmark-excel"></i> Xuất Excel
+            </a>
+            @* <a asp-action="ExportToExcel" asp-route-id="@ViewBag.LopHocPhan.MaLopHocPhan" class="btn btn-success">
+            <i class="bi bi-file-earmark-excel"></i> Xuất Excel
+        </a> *@
+        </div>
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Mã Lớp</th>
+                    <th>Tên Lớp</th>
+                    <th>Khoa</th>
+                    <th>Năm Học</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lop in ViewBag.DanhSachLopBienChe)
+                {
+                    <tr>
+                        <td>@lop.MaLop</td>
+                        <td>@lop.TenLop</td>
+                        <td>@lop.Khoa</td>
+                        <td>@lop.NamHoc</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>

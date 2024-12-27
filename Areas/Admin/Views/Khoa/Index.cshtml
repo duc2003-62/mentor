@@ -1,0 +1,78 @@
+@using mentor.Models
+@model IList<tblKhoa>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Danh sách khoa</h2>
+        <p>
+            <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="Khoa" asp-action="Create">
+                <i class="bi bi-file-earmark-text me-1"></i>Thêm mới khoa
+            </a>
+        </p>
+    </div>
+
+    <!-- Thông báo lỗi khi xóa Khoa có lớp biên chế liên kết -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-body mt-4">
+                        <table class="table table-borderless datatable">
+                        @* <table class="table table-bordered datatable"> *@
+                        @* <table class="table table-bordered"> *@
+                            <thead>
+                                <tr>
+                                    <th class="col-1 text-center">STT</th>
+                                    <th class="col-3 text-center">Tên Khoa</th>
+                                    <th class="col-2 text-center">Trưởng Khoa</th>
+                                    <th class="col-2 text-center">Ngày tạo</th>
+                                    <th class="col-2 text-center">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int index = 1; // Biến đếm STT
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center" scope="row">@index</td> <!-- Cột STT -->
+                                        @* <td class="text-center" scope="row">@item.MaKhoa</td> *@
+                                        <td class="text-left text-primary" scope="row">
+                                            <a asp-area="Admin" asp-controller="Khoa" asp-action="Details" asp-route-id="@item.MaKhoa">
+                                                @item.TenKhoa
+                                            </a>
+                                        </td>
+                                        <td class="text-center" scope="row">@item.TruongKhoa</td>
+                                        <td class="text-center" scope="row">@item.NgayTao</td>
+                                        <td class="text-center" scope="row" style="white-space: nowrap;">
+                                            <a asp-area="Admin" asp-controller="Khoa" asp-action="Edit" asp-route-id="@item.MaKhoa" class="btn btn-primary btn-sm" title="Edit the khoa">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="Khoa" asp-action="Delete" asp-route-id="@item.MaKhoa" class="btn btn-danger btn-sm" title="Delete the khoa">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    index++; // Tăng giá trị của STT
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,61 @@
+@using mentor.Models
+@model tblLopHocPhan
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Chi tiết lớp học phần</h2>
+        <p>
+            <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="LopHocPhan" asp-action="Create">
+                <i class="bi bi-file-earmark-text me-1"></i>Thêm mới lớp học phần
+            </a>
+        </p>
+    </div>
+    
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông tin chi tiết lớp học phần</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên giảng viên</th>
+                                    <th scope="col">Tên học phần</th>
+                                    <th scope="col">Số tín chỉ</th>
+                                    <th scope="col">Học kỳ</th>
+                                    <th scope="col">Ngày bắt đầu</th>
+                                    <th scope="col">Ngày kết thúc</th>
+                                    <th scope="col">Năm học</th>
+                                    <th scope="col">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@(Model.GiangVien != null ? Model.GiangVien.HoTenGiangVien : "Không có thông tin")</td>
+                                    <td>@(Model.HocPhan != null ? Model.HocPhan.TenHocPhan : "Không có thông tin")</td>
+                                    <td>@(Model.HocPhan != null ? Model.HocPhan.SoTinChi.ToString() : "Không có thông tin")</td>
+                                    <td>@(Model.HocKy ?? "Không có thông tin")</td>
+                                    <td>@(Model.NgayBatDau.HasValue ? Model.NgayBatDau.Value.ToString("dd/MM/yyyy") : "Không có thông tin")</td>
+                                    <td>@(Model.NgayKetThuc.HasValue ? Model.NgayKetThuc.Value.ToString("dd/MM/yyyy") : "Không có thông tin")</td>
+                                    <td>@(!string.IsNullOrEmpty(Model.NamHoc) ? Model.NamHoc : "Không có thông tin")</td>
+                                    <td>
+                                        <a asp-area="Admin" asp-controller="LopHocPhan" asp-action="Edit" asp-route-id="@Model.MaLopHocPhan" class="btn btn-primary btn-sm" title="Chỉnh sửa"><i class="bi bi-pencil"></i></a>
+                                        <form asp-area="Admin" asp-controller="LopHocPhan" asp-action="Delete" asp-route-id="@Model.MaLopHocPhan" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?');" title="Xóa"><i class="bi bi-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>
+                            <a type="button" class="btn btn-secondary" asp-area="Admin" asp-controller="LopHocPhan" asp-action="Index">
+                                <i class="bi bi-arrow-left"></i> Quay lại danh sách
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

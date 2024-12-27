@@ -1,0 +1,27 @@
+@using mentor.Models
+@model IList<tblLopHocPhan>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Danh sách lớp học phần</h2>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <ul class="list-group">
+                @foreach (var lopHocPhan in Model)
+                {
+                    <li class="list-group-item">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@lopHocPhan.MaLopHocPhan" aria-expanded="false" aria-controls="collapse-@lopHocPhan.MaLopHocPhan">
+                            @lopHocPhan.TenLopHocPhan
+                        </button>
+                        <div class="collapse" id="collapse-@lopHocPhan.MaLopHocPhan">
+                            <div class="mt-3">
+                                <a class="btn btn-info" asp-action="Details" asp-route-id="@lopHocPhan.MaLopHocPhan">Xem sinh viên đăng ký học</a>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</main>

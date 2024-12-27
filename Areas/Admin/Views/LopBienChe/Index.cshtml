@@ -1,0 +1,67 @@
+@using mentor.Models
+@model IList<tblLopBienChe>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Danh sách lớp biên chế</h2>
+        <p>
+            <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="LopBienChe" asp-action="Create">
+                <i class="bi bi-file-earmark-text me-1"></i>Thêm lớp biên chế
+            </a>
+        </p>
+    </div>    
+    <!-- Thông báo lỗi khi xóa lớp biên chế có sinh viên liên kết -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+        <section class="section dashboard">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+                        <div class="card-body mt-4">
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="col-1 text-center">STT</th>
+                                        <th class="col-3 text-center">Tên lớp</th>
+                                        <th class="col-2 text-center">Tên Khoa</th>
+                                        <th class="col-2 text-center">Năm học</th>
+                                        <th class="col-2 text-center">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="text-center" scope="row">@item.MaLop</td>
+                                            <td class="text-left text-primary" scope="row"><a asp-area="Admin"
+                                                asp-controller="LopBienChe" asp-action="Details"
+                                                asp-route-id="@item.MaLop">@item.TenLop</a></td>
+                                            <td class="text-center" scope="row">@item.Khoa!.TenKhoa</td>
+                                            <td class="text-center" scope="row">@item.NamHoc</td>
+                                            <td class="text-center" scope="row" style="white-space: nowrap;">
+                                                <a asp-area="Admin" asp-controller="LopBienChe" asp-action="Edit"
+                                                   asp-route-id="@item.MaLop" class="btn btn-primary btn-sm"
+                                                   title="Sửa lớp biên chế"><i class="bi bi-pencil"></i></a>
+
+                                                <a asp-area="Admin" asp-controller="LopBienChe" asp-action="Delete"
+                                                   asp-route-id="@item.MaLop" class="btn btn-danger btn-sm"
+                                                   title="Xóa lớp biên chế"><i class="bi bi-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</main>

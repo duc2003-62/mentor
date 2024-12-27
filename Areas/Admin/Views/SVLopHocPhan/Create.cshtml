@@ -1,0 +1,145 @@
+@model mentor.Models.tblSinhVienCuaLopHocPhan
+@{
+    ViewBag.Title = "Thêm sinh viên vào lớp học phần";
+}
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Thêm sinh viên vào lớp học phần</h2>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MaLopHocPhan" value="@ViewBag.MaLopHocPhan" />
+
+                @* <div class="mb-3">
+                    <label for="MaSinhVien" class="form-label">Mã sinh viên</label>
+                    <select asp-for="MaSinhVien" asp-items="ViewBag.AvailableStudents" class="form-select"
+                        onchange="updateStudentInfo()" id="studentDropdown">
+                        <option value="">-- Chọn sinh viên --</option>
+                    </select>
+                </div> *@
+                <div class="mb-3">
+                    <label for="MaSinhVien" class="form-label">Mã sinh viên</label>
+                    <select asp-for="MaSinhVien" asp-items="ViewBag.AvailableStudents" class="form-select"
+                        onchange="updateStudentInfo()" id="studentDropdown">
+                        <option value="">-- Chọn sinh viên --</option>
+                    </select>
+                    <span asp-validation-for="MaSinhVien" class="text-danger"></span>
+                </div>
+
+                @* <div class="mb-3">
+                    <label for="StudentName" class="form-label">Họ tên sinh viên</label>
+                    <input type="text" id="StudentName" class="form-control" disabled />
+                </div> *@
+                <div class="mb-3">
+                    <label for="StudentName" class="form-label">Họ tên sinh viên</label>
+                    <input id="StudentName" name="StudentName" class="form-control" type="text" readonly 
+                        value="@ViewBag.SelectedStudentName" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="NgayDangKy" class="form-label">Ngày đăng ký</label>
+                    <input asp-for="NgayDangKy" class="form-control" type="date" />
+                    <span asp-validation-for="NgayDangKy" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="GhiChu">Ghi chú</label>
+                    <input type="text" class="form-control" asp-for="GhiChu" placeholder="Nhập ghi chú..." />
+                    <span asp-validation-for="GhiChu" class="alert-danger"></span>
+                </div>
+                <a asp-action="Details" asp-route-id="@ViewBag.MaLopHocPhan" class="btn btn-secondary">Quay lại</a>
+                <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                
+            </form>
+        </div>
+    </div>
+</main>
+
+@* @section Scripts {
+    <script>
+        // Lấy danh sách sinh viên từ ViewBag
+        const students = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.AvailableStudents));
+
+        // Cập nhật tên sinh viên khi chọn mã sinh viên
+        function updateStudentInfo() {
+            const selectedCode = document.getElementById('studentDropdown').value; // Lấy mã sinh viên
+            var StudentNameInput = document.getElementById('StudentName'); // Trường để hiển thị tên sinh viên
+            console.log(`Đang tìm sinh viên với mã: ${selectedCode}`);
+
+            // Gọi API để lấy thông tin sinh viên
+            fetch(`/api/search/${selectedCode}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Không tìm thấy sinh viên.");
+                    }
+                    return response.json(); // Chuyển đổi kết quả trả về thành JSON
+                })
+                .then(data => {
+                    console.log("Kết quả API:", data);
+                    StudentNameInput.value = data.hoTen; // Gán tên sinh viên vào ô input
+                })
+                .catch(error => {
+                    StudentNameInput.value = ''; // Xóa giá trị nếu có lỗi
+                    console.error("Lỗi API:", error);
+                });
+        }
+    </script>
+} *@
+@section Scripts {
+    <script>
+        // Lấy danh sách sinh viên từ ViewBag
+        const students = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.AvailableStudents));
+
+        // Cập nhật tên sinh viên khi chọn mã sinh viên
+        function updateStudentInfo() {
+            const selectedCode = document.getElementById('studentDropdown').value;
+            var StudentNameInput = document.getElementById('StudentName');
+            console.log(`Đang tìm sinh viên với mã: ${selectedCode}`);
+
+            // Gọi API để lấy thông tin sinh viên
+            fetch(`/api/search/${selectedCode}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Không tìm thấy sinh viên.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Kết quả API:", data);
+                    StudentNameInput.value = data.hoTen;
+                })
+                .catch(error => {
+                    StudentNameInput.value = '';
+                    console.error("Lỗi API:", error);
+                });
+        }
+
+        // Kiểm tra dữ liệu trước khi gửi
+        document.querySelector("form").addEventListener("submit", function (e) {
+            const studentDropdown = document.getElementById("studentDropdown");
+            const ngayDangKy = document.querySelector("[asp-for='NgayDangKy']");
+            let valid = true;
+
+            // Kiểm tra chọn sinh viên
+            if (!studentDropdown.value) {
+                alert("Bạn phải chọn một sinh viên.");
+                valid = false;
+            }
+
+            // Kiểm tra ngày đăng ký
+            if (!ngayDangKy.value) {
+                alert("Bạn phải chọn ngày đăng ký.");
+                valid = false;
+            }
+
+            if (!valid) {
+                e.preventDefault(); // Ngăn không gửi form nếu không hợp lệ
+            }
+        });
+    </script>
+}

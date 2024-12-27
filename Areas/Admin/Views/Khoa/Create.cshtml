@@ -1,0 +1,87 @@
+@* @model mentor.Models.tblKhoa
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Thêm mới một khoa</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form method="post" asp-action="Create">
+            <div class="form-row">
+                <!-- Khoa Name -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TenKhoa">Tên Khoa</label>
+                    <input type="text" class="form-control" asp-for="TenKhoa" placeholder="Tên khoa..." />
+                    <span asp-validation-for="TenKhoa" class="alert-danger"></span>
+                </div>
+
+                <!-- Truong Khoa -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TruongKhoa">Trưởng Khoa</label>
+                    <input type="text" class="form-control" asp-for="TruongKhoa" placeholder="Tên trưởng khoa..." />
+                    <span asp-validation-for="TruongKhoa" class="alert-danger"></span>
+                </div>
+            </div>
+            
+            <a asp-controller="Khoa" asp-action="Index" class="btn btn-lg btn-warning p-2">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-lg btn-primary p-2">
+                <i class="bi bi-file-plus-fill"></i> Lưu thông tin
+            </button>
+        </form>
+    </div>
+</main>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@
+@model mentor.Models.tblKhoa
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Thêm mới một khoa</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form method="post" asp-action="Create">
+            <div class="form-row">
+                <!-- Tên Khoa -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TenKhoa">Tên Khoa</label>
+                    <input type="text" 
+                        class="form-control @((ViewData.ModelState.ContainsKey("TenKhoa") && !ViewData.ModelState.IsValid) ? "is-invalid" : "")" 
+                        asp-for="TenKhoa" 
+                        placeholder="Nhập tên khoa..." />
+                    <span asp-validation-for="TenKhoa" class="text-danger"></span>
+                </div>
+
+                <!-- Trưởng Khoa -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TruongKhoa">Trưởng Khoa</label>
+                    <input type="text" class="form-control @((ViewData.ModelState.ContainsKey("TruongKhoa") && !ViewData.ModelState.IsValid) ? "is-invalid" : "")" 
+                           asp-for="TruongKhoa" 
+                           placeholder="Tên trưởng khoa..." />
+                    <span asp-validation-for="TruongKhoa" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Nút điều hướng -->
+            <a asp-controller="Khoa" asp-action="Index" class="btn btn-lg btn-warning p-2">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-lg btn-primary p-2">
+                <i class="bi bi-file-plus-fill"></i> Lưu thông tin
+            </button>
+        </form>
+    </div>
+</main>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

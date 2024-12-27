@@ -1,0 +1,43 @@
+@model mentor.Models.tblKhoa
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Chỉnh sửa thông tin khoa</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form method="post" asp-action="Edit">
+            <div class="form-row">
+                <input type="text" class="form-control" asp-for="MaKhoa" type="hidden">
+                <!-- Khoa Name -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TenKhoa">Tên Khoa</label>
+                    <input type="text" class="form-control" asp-for="TenKhoa" 
+                           placeholder="Enter Khoa name..." />
+                    <span asp-validation-for="TenKhoa" class="alert-danger"></span>
+                </div>
+
+                <!-- Truong Khoa -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TruongKhoa">Trưởng Khoa</label>
+                    <input type="text" class="form-control" asp-for="TruongKhoa" 
+                           placeholder="Enter Truong Khoa..." />
+                    <span asp-validation-for="TruongKhoa" class="alert-danger"></span>
+                </div>
+            </div>
+            
+            <a asp-controller="Khoa" asp-action="Index" class="btn btn-lg btn-warning p-2">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-lg btn-primary p-2">
+                <i class="bi bi-file-plus-fill"></i> Lưu thông tin
+            </button>
+        </form>
+    </div>
+</main>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

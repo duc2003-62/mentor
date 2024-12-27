@@ -1,0 +1,53 @@
+@using mentor.Models
+@model IList<mentor.Models.tblThongKeDiemDanhNew>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Thống kê điểm danh sinh viên trong lớp học phần</h2> <!-- Tiêu đề thêm vào -->
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã sinh viên</th> <!-- Thay đổi tiêu đề -->
+                <th>Họ và tên</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>Số buổi có mặt</th>
+                <th>Số buổi đi muộn</th>
+                <th>Số buổi vắng</th>
+                <th>Tổng số buổi tham gia</th>
+                <th>Điểm chuyên cần</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.MaSinhVienCode</td> <!-- Sửa thành MaSinhVienCode nếu có field trong database -->
+                    <td>@item.HoTen</td>
+                    <td>@item.NgaySinh?.ToString("dd/MM/yyyy")</td>
+                    <td>@item.GioiTinh</td>
+                    <td>@item.SoBuoiCoMat</td>
+                    <td>@item.SoBuoiDiMuon</td>
+                    <td>@item.SoBuoiVang</td>
+                    <td>@item.TongSoBuoi</td>
+                    <td>@item.DiemChuyenCan</td>
+                </tr>
+                i++; @* Tăng giá trị biến đếm *@
+            }
+        </tbody>
+    </table>
+    <p>
+        <a type="button" class="btn btn-secondary" asp-area="Admin" asp-controller="ThongKeDiemDanh" asp-action="Index">
+            <i class="bi bi-arrow-left"></i> Quay lại danh sách
+        </a>
+        <a asp-action="ExportToExcel" asp-route-id="@ViewBag.LopHocPhan.MaLopHocPhan" class="btn btn-success">
+            <i class="bi bi-file-earmark-excel"></i> Xuất Excel
+        </a>
+    </p>
+</main>

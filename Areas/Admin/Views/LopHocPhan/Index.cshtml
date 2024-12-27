@@ -1,0 +1,81 @@
+@using mentor.Models
+@model IList<tblLopHocPhan>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Danh sách lớp học phần</h2>
+        <p>
+            <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="LopHocPhan" asp-action="Create">
+                <i class="bi bi-file-earmark-text me-1"></i>Thêm mới lớp học phần
+            </a>
+        </p>
+    </div>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+    <div class="folders">
+        @foreach (var lopHocPhan in Model)
+        {
+            <div class="folder">
+                <h3>@($"Lớp: {lopHocPhan.TenLopHocPhan}")</h3> <!-- Sử dụng trường TenLopHocPhan -->
+                <div class="folder-content">
+                    <p>Giảng viên: @lopHocPhan.GiangVien?.HoTenGiangVien</p>
+                    <p>Năm học: @lopHocPhan.NamHoc</p>
+                    <p>Ngày bắt đầu: @(lopHocPhan.NgayBatDau.HasValue ? lopHocPhan.NgayBatDau.Value.ToString("dd/MM/yyyy") : "N/A")</p>
+                    <p>Ngày kết thúc: @(lopHocPhan.NgayKetThuc.HasValue ? lopHocPhan.NgayKetThuc.Value.ToString("dd/MM/yyyy") : "N/A")</p>
+                    <p><a href="@Url.Action("Details", "LopHocPhan", new { id = lopHocPhan.MaLopHocPhan })">Chi tiết</a></p>
+                </div>
+            </div>
+        }
+    </div>
+</main>
+
+<style>
+    .folders {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .folder {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s;
+    }
+
+    .folder:hover {
+        background-color: #e7f1ff; /* Đổi màu khi hover */
+    }
+
+    .folder-content {
+        padding-left: 20px; /* Thụt lề cho nội dung */
+        display: none; /* Ẩn nội dung ban đầu */
+    }
+
+    .folder h3 {
+        cursor: pointer; /* Con trỏ dạng tay khi hover vào tiêu đề */
+    }
+
+    .folder h3:hover {
+        text-decoration: underline; /* Gạch chân khi hover */
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.folder h3').forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            content.style.display = (content.style.display === "block") ? "none" : "block";
+        });
+    });
+</script>

@@ -1,0 +1,81 @@
+@model mentor.Models.tblLopHocPhan
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Chỉnh sửa thông tin lớp học phần</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form method="post" asp-action="Edit">
+            <div class="form-row">
+                <input type="hidden" asp-for="MaLopHocPhan" /> <!-- Bổ sung trường ẩn cho ID -->
+                <!-- Tên lớp học phần -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TenLopHocPhan">Tên lớp học phần</label>
+                    <input type="text" class="form-control" asp-for="TenLopHocPhan" placeholder="Enter Class Name..." />
+                    <span asp-validation-for="TenLopHocPhan" class="alert-danger"></span>
+                </div>
+
+                <!-- Tên học phần (Dropdown List) -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="MaHocPhan">Tên học phần</label>
+                    <select class="form-control" asp-for="MaHocPhan" asp-items="@ViewBag.HocPhanList">
+                        <option value="0">--- Select ---</option>
+                    </select>
+                    <span asp-validation-for="MaHocPhan" class="alert-danger"></span>
+                </div>
+
+                <!-- Tên Giảng Viên (Dropdown List) -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="MaGiangVien">Tên giảng viên</label>
+                    <select class="form-control" asp-for="MaGiangVien" asp-items="@ViewBag.GiangVienList">
+                        <option value="0">--- Select ---</option>
+                    </select>
+                    <span asp-validation-for="MaGiangVien" class="alert-danger"></span>
+                </div>
+
+                <!-- Học kỳ -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="HocKy">Học kỳ</label>
+                    <input type="text" class="form-control" asp-for="HocKy" placeholder="Enter Semester..." />
+                    <span asp-validation-for="HocKy" class="alert-danger"></span>
+                </div>
+
+                <!-- Ngày bắt đầu -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="NgayBatDau">Ngày bắt đầu</label>
+                    <input type="date" class="form-control" asp-for="NgayBatDau" />
+                    <span asp-validation-for="NgayBatDau" class="alert-danger"></span>
+                </div>
+
+                <!-- Ngày kết thúc -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="NgayKetThuc">Ngày kết thúc</label>
+                    <input type="date" class="form-control" asp-for="NgayKetThuc" />
+                    <span asp-validation-for="NgayKetThuc" class="alert-danger"></span>
+                </div>
+
+                <!-- Năm học -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="NamHoc">Năm học</label>
+                    <input type="text" class="form-control" asp-for="NamHoc" placeholder="Enter Academic Year..." />
+                    <span asp-validation-for="NamHoc" class="alert-danger"></span>
+                </div>
+                
+            </div>
+            
+            <a asp-controller="LopHocPhan" asp-action="Index" class="btn btn-lg btn-warning p-2">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại 
+            </a>
+            <button type="submit" class="btn btn-lg btn-primary p-2">
+                <i class="bi bi-file-earmark-check-fill"></i> Lưu thông tin
+            </button>
+        </form>
+    </div>
+</main>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

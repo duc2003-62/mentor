@@ -1,0 +1,358 @@
+@using mentor.Models
+@model IList<tblDiemDanh>
+@{
+    ViewData["Title"] = "Điểm danh";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Điểm danh</h2>
+    </div>
+
+    <div class="container">
+        <!-- Form chọn điều kiện điểm danh -->
+        <form id="attendanceForm">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="hocKy">Học kỳ</label>
+                        <input type="text" id="hocKy" name="hocKy" class="form-control" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label for="lopHocPhan">Lớp học phần</label>
+                    <select id="lopHocPhan" name="maLopHocPhan" class="form-select">
+                        <option value="">Chọn lớp học phần</option>
+                        @foreach (var lopHocPhan in ViewBag.LopHocPhanOptions)
+                        {
+                            <option value="@lopHocPhan.Value">@lopHocPhan.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <!---Begin--->
+                <!-- Số buổi (Dropdown List) -->
+                <div class="col-md-3">
+                    <label for="buoi">Buổi</label>
+                    <select id="buoi" class="form-control" name='buoi' asp-items="ViewBag.BuoiList">
+                        <option value="">Chọn Buổi</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="ngayDiemDanh">Ngày điểm danh</label>
+                    <input type="date" id="ngayDiemDanh" name="ngayDiemDanh" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+            <button id="attendanceButton" type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </form>
+
+        <form action='@Url.Action("SaveAttendance", "DiemDanh", new { area = "Admin" })' method="post">
+            <!-- Bảng danh sách sinh viên -->
+            <table class="table table-bordered" id="studentTable">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ và tên</th>
+                        <th>Mã sinh viên</th>
+                        <th>Điểm danh</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dữ liệu sinh viên sẽ được đổ vào đây bằng Ajax -->
+                </tbody>
+            </table>
+
+            <!-- Nút Điểm danh -->
+            <button type="button" class="btn btn-success" id="saveAttendance">Điểm danh</button>
+        </form>
+    </div>
+</main>
+
+<script>
+        $('#lopHocPhan').on('change', function () {
+        const maLopHocPhan = $(this).val(); // Lấy giá trị MaLopHocPhan được chọn
+
+        if (!maLopHocPhan) {
+            $('#hocKy').val(""); // Xóa giá trị Học kỳ nếu không chọn lớp học phần
+            return;
+        }
+
+        // Gửi yêu cầu đến API để lấy Học kỳ
+        $.ajax({
+            url: '@Url.Action("GetHocKyByLopHocPhan", "DiemDanh", new { area = "Admin" })',
+            type: 'GET',
+            data: { maLopHocPhan: maLopHocPhan },
+            success: function (response) {
+                if (response.success) {
+                    $('#hocKy').val(response.hocKy); // Gán giá trị Học kỳ vào trường Học kỳ
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi lấy thông tin Học kỳ.");
+            }
+        });
+    });
+    // Hàm gọi API để lấy danh sách sinh viên dựa trên Lớp học phần được chọn
+    @* let attendanceForm = document.getElementById("attendanceForm");
+    attendanceForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const dataObject = {};
+        formData.forEach((value, key) => {
+            dataObject[key] = value;
+        });
+
+        fetch('@Url.Action("GetStudents", "DiemDanh", new { area = "Admin" })', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataObject),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Success:", data);
+            $('#studentTable tbody').empty(); // Xóa dữ liệu cũ trước khi thêm dữ liệu mới
+            $.each(data, function (index, student) {
+                console.log(student);
+                $('#studentTable tbody').append(`
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${student.HoTen ?? 'N/A'}</td>
+                        <td style="display: none;">${student.MaSinhVienCuaLopHocPhan}</td> <!-- Sử dụng MaSinhVienCuaLopHocPhan -->
+                        <td>${student.MaSinhVienCode ?? 'N/A'}</td> <!-- Hiển thị MaSinhVienCode -->
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="attendance_${index}" value="CM" ${student.TrangThai.value === "CM" ? "checked" : ""}>
+                                <label class="form-check-label">CM</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="attendance_${index}" value="M" ${student.TrangThai.value === "M" ? "checked" : ""}>
+                                <label class="form-check-label">M</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="attendance_${index}" value="CP" ${student.TrangThai.value === "CP" ? "checked" : ""}>
+                                <label class="form-check-label">CP</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="attendance_${index}" value="KP" ${student.TrangThai.value === "KP" ? "checked" : ""}>
+                                <label class="form-check-label">KP</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="form-control" name="note_${index}" value="${student.GhiChu ?? ''}"></td>
+                    </tr>
+                `);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }); *@
+    let attendanceForm = document.getElementById("attendanceForm");
+    attendanceForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Lấy dữ liệu từ form
+        const formData = new FormData(attendanceForm);
+        const dataObject = {};
+        formData.forEach((value, key) => {
+            dataObject[key] = value;
+        });
+
+        // Gửi dữ liệu đến API GetStudents
+        fetch('@Url.Action("GetStudents", "DiemDanh", new { area = "Admin" })', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataObject),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Dữ liệu nhận được:", data);
+
+            // Xóa dữ liệu cũ trong bảng
+            $('#studentTable tbody').empty();
+
+            // Nếu không có dữ liệu, hiển thị thông báo
+            if (data.length === 0) {
+                alert("Không tìm thấy dữ liệu điểm danh cho buổi đã chọn.");
+                return;
+            }
+
+            // Hiển thị danh sách sinh viên và trạng thái điểm danh
+            data.forEach((student, index) => {
+                $('#studentTable tbody').append(`
+                    <tr data-id="${student.MaSinhVienCuaLopHocPhan}">
+                        <td>${index + 1}</td>
+                        <td>${student.HoTen ?? 'N/A'}</td>
+                        <td>${student.MaSinhVienCode ?? 'N/A'}</td>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="attendance_${index}" value="CM" ${student.TrangThai === "CM" ? "checked" : ""}>
+                                <label class="form-check-label">CM</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="attendance_${index}" value="M" ${student.TrangThai === "M" ? "checked" : ""}>
+                                <label class="form-check-label">M</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="attendance_${index}" value="CP" ${student.TrangThai === "CP" ? "checked" : ""}>
+                                <label class="form-check-label">CP</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="attendance_${index}" value="KP" ${student.TrangThai === "KP" ? "checked" : ""}>
+                                <label class="form-check-label">KP</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="form-control" name="note_${index}" value="${student.GhiChu ?? ''}"></td>
+                    </tr>
+                `);
+            });
+        })
+        .catch(error => {
+            console.error('Lỗi khi tải dữ liệu điểm danh:', error);
+            alert("Có lỗi xảy ra khi tải dữ liệu điểm danh.");
+        });
+    });
+
+
+    // Xử lý sự kiện lưu điểm danh
+    @* $('#saveAttendance').click(function () {
+         // Lấy giá trị lớp học phần và buổi
+        var maLopHocPhan = document.querySelector("[name=maLopHocPhan]").value;
+        var buoi = document.querySelector("[name=buoi]").value;
+
+        // Kiểm tra giá trị lớp học phần và buổi
+        if (!maLopHocPhan) {
+            alert("Vui lòng chọn lớp học phần trước khi điểm danh!");
+            return; // Dừng thực hiện nếu không chọn lớp học phần
+        }
+
+        if (!buoi) {
+            alert("Vui lòng chọn buổi trước khi điểm danh!");
+            return; // Dừng thực hiện nếu không chọn buổi
+        }
+        var attendanceData = [];
+        var buoi = document.querySelector("[name=buoi]");
+        var ngayDiemDanh = document.querySelector("[name=ngayDiemDanh]").value; // Lấy ngày từ form
+        console.log(buoi);
+        $('#studentTable tbody tr').each(function (index, row) {
+            var maSinhVienCuaLopHocPhan = $(row).find('td:eq(2)').text(); // Lấy MaSinhVienCuaLopHocPhan
+            var trangThai = $(row).find('input[name="attendance_' + index + '"]:checked').val();
+            var ghiChu = $(row).find('input[name="note_' + index + '"]').val();
+            console.log('Ghi Chú: ', ghiChu); // Kiểm tra giá trị ghi chú
+            attendanceData.push({
+                MaSinhVienCuaLopHocPhan: maSinhVienCuaLopHocPhan, // Gửi MaSinhVienCuaLopHocPhan
+                TrangThai: trangThai,
+                GhiChu: ghiChu,
+                Buoi: buoi.value,
+                
+                MaLopHocPhan: document.querySelector("[name=maLopHocPhan]").value,
+                NgayDiemDanh: ngayDiemDanh // Truyền ngày điểm danh chính xác
+            });
+        });
+        console.log(attendanceData);
+        // Gửi dữ liệu điểm danh về server
+        $.ajax({
+            url: '@Url.Action("SaveAttendance", "DiemDanh", new { area = "Admin" })',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(attendanceData),
+            success: function (response) {
+                alert('Điểm danh thành công!');
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi điểm danh!');
+            }
+        });
+    }); *@
+        $('#saveAttendance').click(function () {
+        // Lấy dữ liệu lớp học phần và buổi
+        const maLopHocPhan = $('#lopHocPhan').val();
+        const buoi = $('#buoi').val();
+        const ngayDiemDanh = $('#ngayDiemDanh').val();
+
+        // Kiểm tra giá trị lớp học phần và buổi
+        if (!maLopHocPhan || !buoi) {
+            alert("Vui lòng chọn lớp học phần và buổi trước khi điểm danh!");
+            return;
+        }
+
+        // Thu thập dữ liệu từ bảng
+        const attendanceData = [];
+        $('#studentTable tbody tr').each(function (index, row) {
+            const maSinhVienCuaLopHocPhan = $(row).data('id');
+            const trangThai = $(row).find(`input[name="attendance_${index}"]:checked`).val();
+            const ghiChu = $(row).find(`input[name="note_${index}"]`).val();
+
+            // Kiểm tra trạng thái điểm danh
+            if (!trangThai) {
+                alert(`Vui lòng chọn trạng thái cho sinh viên ở dòng ${index + 1}`);
+                return false;
+            }
+
+            // Thêm dữ liệu vào danh sách
+            attendanceData.push({
+                MaSinhVienCuaLopHocPhan: maSinhVienCuaLopHocPhan,
+                TrangThai: trangThai,
+                GhiChu: ghiChu,
+                Buoi: buoi,
+                NgayDiemDanh: ngayDiemDanh
+            });
+        });
+
+        console.log("Dữ liệu điểm danh:", attendanceData);
+
+        // Gửi dữ liệu đến server
+        $.ajax({
+            url: '@Url.Action("SaveAttendance", "DiemDanh", new { area = "Admin" })',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(attendanceData),
+            success: function (response) {
+                if (response.success) {
+                    alert('Điểm danh thành công!');
+                } else {
+                    alert(response.message || 'Có lỗi xảy ra khi điểm danh!');
+                }
+            },
+            error: function () {
+                alert('Không thể lưu điểm danh. Vui lòng thử lại!');
+            }
+        });
+    });
+    $('#lopHocPhan').on('change', function () {
+        const maLopHocPhan = $(this).val();
+
+        if (!maLopHocPhan) {
+            $('#hocKy').val("");
+            return;
+        }
+
+        $.ajax({
+            url: '@Url.Action("GetHocKyByLopHocPhan", "DiemDanh", new { area = "Admin" })',
+            type: 'GET',
+            data: { maLopHocPhan: maLopHocPhan },
+            success: function (response) {
+                if (response.success) {
+                    $('#hocKy').val(response.hocKy);
+                } else {
+                    alert(response.message || "Không tìm thấy học kỳ cho lớp học phần này.");
+                    $('#hocKy').val("");
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi lấy thông tin học kỳ.");
+                $('#hocKy').val("");
+            }
+        });
+    });
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

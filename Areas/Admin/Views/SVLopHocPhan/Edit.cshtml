@@ -1,0 +1,72 @@
+@model mentor.Models.tblSinhVienCuaLopHocPhan
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Chỉnh sửa thông tin sinh viên trong lớp học phần</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form asp-action="Edit" method="post">
+            <div class="form-row">
+                <input type="hidden" asp-for="MaSinhVienCuaLopHocPhan" />
+
+                <!-- Mã Sinh Viên (Disabled) -->
+                @* <div class="form-group col-md-6 mb-3">
+                    <label asp-for="SinhVien!.MaSinhVienCode">Mã Sinh Viên</label>
+                    <input type="text" class="form-control" asp-for="SinhVien!.MaSinhVienCode" disabled />
+                </div>
+
+                <!-- Họ Tên Sinh Viên (Disabled) -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="SinhVien!.HoTen">Họ Tên Sinh Viên</label>
+                    <input type="text" class="form-control" asp-for="SinhVien!.HoTen" disabled />
+                </div> *@
+                <!-- Mã Sinh Viên (Readonly) -->
+<div class="form-group col-md-6 mb-3">
+    <label asp-for="SinhVien!.MaSinhVienCode">Mã Sinh Viên</label>
+    <input type="text" class="form-control" asp-for="SinhVien!.MaSinhVienCode" readonly />
+    <!-- Thêm input hidden để gửi giá trị -->
+    <input type="hidden" asp-for="SinhVien!.MaSinhVienCode" />
+</div>
+
+<!-- Họ Tên Sinh Viên (Readonly) -->
+<div class="form-group col-md-6 mb-3">
+    <label asp-for="SinhVien!.HoTen">Họ Tên Sinh Viên</label>
+    <input type="text" class="form-control" asp-for="SinhVien!.HoTen" readonly />
+    <!-- Thêm input hidden để gửi giá trị -->
+    <input type="hidden" asp-for="SinhVien!.HoTen" />
+</div>
+
+
+                <!-- Ngày Đăng Ký -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="NgayDangKy">Ngày Đăng Ký</label>
+                    <input type="date" class="form-control" asp-for="NgayDangKy" />
+                    <span asp-validation-for="NgayDangKy" class="alert-danger"></span>
+                </div>
+
+                <!-- Ghi Chú -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="GhiChu">Ghi Chú</label>
+                    <textarea class="form-control" asp-for="GhiChu" placeholder="Thêm ghi chú..."></textarea>
+                    <span asp-validation-for="GhiChu" class="alert-danger"></span>
+                </div>
+            </div>
+
+            <!-- Nút hành động -->
+            <a asp-action="Details" asp-route-id="@Model.MaLopHocPhan" class="btn btn-lg btn-warning p-2">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-lg btn-primary p-2">
+                <i class="bi bi-file-earmark-check-fill"></i> Lưu thông tin
+            </button>
+        </form>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

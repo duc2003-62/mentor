@@ -1,0 +1,51 @@
+@model mentor.Models.tblLopBienChe
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Thêm mới một lớp biên chế</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form method="post" asp-action="Create">
+            <div class="form-row">
+                
+                <!-- Tên Lớp -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="TenLop">Tên lớp biên chế</label>
+                    <input type="text" 
+                        class="form-control @(ViewData.ModelState.ContainsKey("TenLop") && !ViewData.ModelState.IsValid ? "is-invalid" : "")" 
+                        asp-for="TenLop" 
+                        placeholder="Tên lớp biên chế..." />
+                    <span asp-validation-for="TenLop" class="text-danger"></span>
+                </div>
+
+
+                <!-- Khoa (Dropdown List) -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="MaKhoa">Khoa</label>
+                    <select class="form-control" asp-for="MaKhoa" asp-items="ViewBag.KhoaList">
+                        <option value="0">--- Select ---</option>
+                    </select>
+                    <span asp-validation-for="MaKhoa" class="alert-danger"></span>
+                </div>
+                
+                <!-- Năm Học -->
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="NamHoc">Năm học</label>
+                    <input type="number" class="form-control" asp-for="NamHoc" placeholder="Năm học..." />
+                    <span asp-validation-for="NamHoc" class="alert-danger"></span>
+                </div>
+            </div>
+            
+            <a asp-controller="LopBienChe" asp-action="Index" class="btn btn-lg btn-warning p-2">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-lg btn-primary p-2">
+                <i class="bi bi-file-plus-fill"></i> Lưu thông tin
+            </button>
+        </form>
+    </div>
+</main>

@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using mentor.Areas.Admin.Models;
 namespace mentor.Models
 {
-    public class DataContext : DbContext 
+    public class DataContext : IdentityDbContext 
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

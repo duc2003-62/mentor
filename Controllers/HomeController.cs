@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using mentor.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mentor.Controllers;
 
@@ -13,6 +14,7 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [Authorize(Roles = "Administrator")]
     public IActionResult Index()
     {
         return View();

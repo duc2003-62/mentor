@@ -24,8 +24,23 @@ namespace mentor.Models
         public DbSet<tblDiemDanh> DiemDanhs { get; set; }
         public DbSet<tblThongKeDiemDanh> ThongKeDiemDanhs { get; set; }
         public DbSet<tblThongKeDiemDanhNew> ThongKeDiemDanhNews { get; set; }
-        public DbSet<tblNguoiDung> NguoiDungs  { get; set; }
+        // public DbSet<tblNguoiDung> NguoiDungs  { get; set; }
         public DbSet<viewPostMenu> ViewPostMenus { get; set; }
-        public DbSet<AdminMenu> adminMenus { get; set; }
+        public DbSet<AdminMenu> AdminMenus { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<tblSinhVien>()
+                .HasOne(s => s.Khoa)
+                .WithMany(k => k.SinhViens)
+                .HasForeignKey(s => s.MaKhoa)
+                .OnDelete(DeleteBehavior.SetNull);
+            builder.Entity<tblSinhVien>()
+                .HasOne(s => s.LopBienChe)
+                .WithMany(l => l.SinhViens)
+                .HasForeignKey(s => s.MaLop)
+                .OnDelete(DeleteBehavior.SetNull);
+            base.OnModelCreating(builder);
+        }
     }
 }

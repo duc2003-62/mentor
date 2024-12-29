@@ -19,6 +19,8 @@ namespace mentor.Models
         [ForeignKey("MaKhoa")]
         public tblKhoa? Khoa { get; set; }
 
+        public ICollection<tblSinhVien>? SinhViens { get; set; }
+
         /// <summary>
         /// Kiểm tra xem tên Lớp Biên Chế có trùng lặp trong cơ sở dữ liệu hay không.
         /// </summary>

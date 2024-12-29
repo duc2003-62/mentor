@@ -48,6 +48,9 @@ namespace mentor.Models
 
         public DateTime? NgayTao { get; set; } = DateTime.Now;
 
+        public ICollection<tblSinhVien>? SinhViens { get; set; }
+        public ICollection<tblGiangVien>? GiangViens { get; set; }
+
         /// <summary>
         /// Kiểm tra xem tên Khoa có trùng lặp trong cơ sở dữ liệu hay không.
         /// </summary>

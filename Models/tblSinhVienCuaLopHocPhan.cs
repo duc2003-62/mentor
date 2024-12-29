@@ -26,5 +26,7 @@ namespace mentor.Models
 
         [ForeignKey("MaLopHocPhan")]
         public tblLopHocPhan? LopHocPhan { get; set; }
+        public ICollection<tblThongKeDiemDanh>? ThongKeDiemDanhs { get; set; }
+        public ICollection<tblDiemDanh>? DiemDanhs { get; set; }
     }
 }

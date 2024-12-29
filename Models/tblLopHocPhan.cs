@@ -29,6 +29,8 @@ namespace mentor.Models
         public string? NamHoc { get; set; }
         public DateTime? NgayBatDau { get; set; }  // Ngày bắt đầu
         public DateTime? NgayKetThuc { get; set; } // Ngày kết thúc
+
+        public ICollection<tblSinhVienCuaLopHocPhan>? SinhVienCuaLopHocPhans { get; set; }
         
         [ForeignKey("MaHocPhan")]
         public tblHocPhan? HocPhan { get; set; }

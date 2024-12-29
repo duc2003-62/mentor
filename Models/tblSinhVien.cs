@@ -49,5 +49,7 @@ namespace mentor.Models
     [ForeignKey("MaKhoa")]
     public tblKhoa? Khoa { get; set; }
 
+    public ICollection<tblSinhVienCuaLopHocPhan>? SinhVienCuaLopHocPhans { get; set; }
+
     }
 }

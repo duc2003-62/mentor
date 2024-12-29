@@ -19,6 +19,8 @@ namespace mentor.Models
 
         public int SoTinChi { get; set; }
         public long? MaKhoa { get; set; }
+
+        public ICollection<tblLopHocPhan>? LopHocPhans { get; set; }
         
         [ForeignKey("MaKhoa")]
         public tblKhoa? Khoa { get; set; }
